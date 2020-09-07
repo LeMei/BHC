@@ -7,16 +7,6 @@ import numpy as np
 import os
 from config import *
 
-def seed_torch():
-    random.seed(TORCH_SEED)
-    os.environ['PYTHONHASHSEED'] = str(TORCH_SEED)
-    np.random.seed(TORCH_SEED)
-    torch.manual_seed(TORCH_SEED)
-    torch.cuda.manual_seed_all(TORCH_SEED)
-    torch.backends.cudnn.deterministic = True
-    torch.backends.cudnn.benchmark = False
-    torch.backends.cudnn.enabled = False
-
 class Attention(nn.Module):
     def __init__(self, configs):
         super(Attention, self).__init__()
@@ -35,7 +25,6 @@ class Attention(nn.Module):
         :param sents_h: (2, doc_len, hidden_dim)
         :return: (2, doc_len, hidden_dim)
         """
-        seed_torch()
         doc_len = sents_h.size(1)
 
         # emotion_q = emotion_h.expand(-1, doc_len, -1)
@@ -139,7 +128,6 @@ class MHAttention(nn.Module):
         :param all_attn:
         :return:
         """
-        seed_torch()
 
         batch_size = key.size(0)  # 2
         dim_per_head = self.dim_per_head  # 768/n_head
@@ -191,7 +179,6 @@ class MHAGGate(nn.Module):
         :param sents_h: (2, doc_len, hidden_dim)
         :return: (2, doc_len, hidden_dim)
         """
-        seed_torch()
         batch_size = sents_h.size(0)
         doc_len = sents_h.size(1)
 

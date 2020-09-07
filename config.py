@@ -54,7 +54,7 @@ class Config(object):
         self.pos_dropout = 0.1
         self.sent_dropout = 0.1
 
-        self.debug = True
+        self.debug = False
         self.use_kernel = False
 
         self.bert_grad = True
